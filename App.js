@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeStackScreen from './screens/HomeStackScreen';
+import BorrowedScreen from './screens/BorrowedScreen';
+import AntDesign from '@expo/vector-icons/AntDesign';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator 
+      screenOptions={{
+        tabBarActiveTintColor: '#00bfff',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          backgroundColor: '#f8f8f8',
+        },
+      }}>
+        <Tab.Screen name="Home" component={HomeStackScreen} options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="home" size={size} color={color} />
+          ),
+        }} />
+        <Tab.Screen name="Borrowed" component={BorrowedScreen} options={{
+          tabBarLabel: 'Borrowed',
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="book" size={size} color={color} />
+          ),
+        }} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
